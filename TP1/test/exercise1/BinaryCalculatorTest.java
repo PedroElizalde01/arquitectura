@@ -1,8 +1,9 @@
-package test;
+package TP1.test.exercise1;
 
-import main.BinaryCalculator;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+
+import TP1.main.exercise1.BinaryCalculator;
 
 public class BinaryCalculatorTest {
     BinaryCalculator calc = new BinaryCalculator();
