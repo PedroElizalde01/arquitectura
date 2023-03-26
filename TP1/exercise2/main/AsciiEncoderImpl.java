@@ -1,4 +1,4 @@
-package TP1.main.exercise2;
+package TP1.exercise2.main;
 
 public class AsciiEncoderImpl implements AsciiEncoder {
 

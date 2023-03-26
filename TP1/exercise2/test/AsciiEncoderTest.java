@@ -1,9 +1,9 @@
-package TP1.test.exercise2;
+package TP1.exercise2.test;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
-import TP1.main.exercise2.AsciiEncoderImpl;
+import TP1.exercise2.main.AsciiEncoderImpl;
 
 public class AsciiEncoderTest {
     @Test

@@ -1,4 +1,4 @@
-package TP1.main.exercise1;
+package TP1.exercise1.main;
 
 public interface Calculator {
     String sum(String a, String b);

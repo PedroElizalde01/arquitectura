@@ -1,4 +1,4 @@
-package TP1.main.exercise1;
+package TP1.exercise1.main;
 
 public class BinaryCalculator implements Calculator{
 
@@ -158,43 +158,26 @@ public class BinaryCalculator implements Calculator{
     
         return resultBuilder.reverse().toString().replaceFirst("^0+(?!$)", "");
     }
-    
-    
 
     @Override
     public String toHex(String binary){
-        return "pp";
+        int decimal = Integer.parseInt(binary, 2);
+    
+        // Convert integer to hexadecimal string
+        String hex = Integer.toHexString(decimal);
+        
+        return hex;
     }
 
     @Override
-    public String fromHex(String hex){
-return "pp";
+    public String fromHex(String hex) {
+        // Convert hexadecimal string to integer
+        int decimal = Integer.parseInt(hex, 16);
+        
+        // Convert integer to binary string
+        String binary = Integer.toBinaryString(decimal);
+        
+        return binary;
     }
-
-    private static int getDigit(String binary, int position) {
-        if (position < binary.length()) {
-            return binary.charAt(binary.length() - position - 1) - '0';
-        } else {
-            return 0;
-        }
-    }
-
-    private static int binaryToInt(String binary) {
-        int result = 0;
-        for (int i = binary.length() - 1, j = 0; i >= 0; i--, j++) {
-            int digit = binary.charAt(i) - '0';
-            result += digit * Math.pow(2, j);
-        }
-        return result;
-    }
-
-    private static String intToBinary(int num) {
-        StringBuilder binary = new StringBuilder();
-        while (num > 0) {
-            int digit = num % 2;
-            binary.insert(0, digit);
-            num /= 2;
-        }
-        return binary.toString();
-    }
+    
 }
