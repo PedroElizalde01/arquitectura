@@ -19,18 +19,18 @@ public class BCDEncoderImpl implements BCDEncoder {
 
     @Override
     public String encode(int a) {
-        StringBuilder result = new StringBuilder();
+        String result = "";
         while(a > 0){
             int b = a % 10;
             a = a / 10;
-            result.insert(0, bcdMap.get(b));
+            result = bcdMap.get(b) + result;
         }
-        return result.toString();
+        return result;
     }
 
     @Override
     public int decode(String a) {
-        int result =0;
+        int result = 0;
         while (a.length() > 0) {
             int current = Integer.parseInt(a.substring(0,4),2);
             result = result * 10 + current;
