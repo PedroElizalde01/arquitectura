@@ -4,23 +4,23 @@ public class BinaryCalculator implements Calculator{
 
     @Override
     public String sum(String a, String b) {
-        StringBuilder result = new StringBuilder();
-        int carry = 0;
-        int maxLength = Math.max(a.length(), b.length());
-    
-        for (int i = 0; i < maxLength; i++) {
-            int bitA = (i < a.length()) ? a.charAt(a.length() - 1 - i) - '0' : 0;
-            int bitB = (i < b.length()) ? b.charAt(b.length() - 1 - i) - '0' : 0;
-            int sum = bitA + bitB + carry;
-            result.append(sum % 2);
-            carry = sum / 2;
-        }
-    
-        if (carry != 0) {
-            result.append(carry);
-        }
-    
-        return result.reverse().toString();
+       String result = "";
+       int carry = 0;
+       int maxLength = Math.max(a.length(), b.length());
+
+       for (int i = 0; i < maxLength; i++) {
+           int bitA = (i < a.length()) ? a.charAt(a.length() - 1 - i) - '0' : 0;
+           int bitB = (i < b.length()) ? b.charAt(b.length() - 1 - i) - '0' : 0;
+           int sum = bitA ^ bitB ^ carry;
+           result = (char) (sum + '0') + result ;
+           carry = (bitA & bitB) | (bitA & carry) | (bitB & carry);
+       }
+
+       if (carry != 0) {
+           result = carry + result;
+       }
+
+       return result;
     }
 
     @Override
