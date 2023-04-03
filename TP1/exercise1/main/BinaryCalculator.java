@@ -9,8 +9,8 @@ public class BinaryCalculator implements Calculator{
        int maxLength = Math.max(a.length(), b.length());
 
        for (int i = 0; i < maxLength; i++) {
-           int bitA = (i < a.length()) ? a.charAt(a.length() - 1 - i) - '0' : 0;
-           int bitB = (i < b.length()) ? b.charAt(b.length() - 1 - i) - '0' : 0;
+           int bitA = (i < a.length()) ? a.charAt(a.length() - 1 - i) - 48 : 0; // 48 is the ASCII code for 0
+           int bitB = (i < b.length()) ? b.charAt(b.length() - 1 - i) - 48 : 0;
            int sum = bitA ^ bitB ^ carry;
            result = (char) (sum + '0') + result ;
            carry = (bitA & bitB) | (bitA & carry) | (bitB & carry);
