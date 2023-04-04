@@ -12,7 +12,7 @@ public class BinaryCalculator implements Calculator{
            int bitA = (i < a.length()) ? a.charAt(a.length() - 1 - i) - 48 : 0; // 48 is the ASCII code for 0
            int bitB = (i < b.length()) ? b.charAt(b.length() - 1 - i) - 48 : 0;
            int sum = bitA ^ bitB ^ carry;
-           result = (char) (sum + '0') + result ;
+           result = (char) (sum + 48) + result ;
            carry = (bitA & bitB) | (bitA & carry) | (bitB & carry);
        }
 
