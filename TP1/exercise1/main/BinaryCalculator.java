@@ -25,67 +25,30 @@ public class BinaryCalculator implements Calculator{
 
     @Override
     public String sub(String a, String b){
-    StringBuilder result = new StringBuilder();
-    int borrow = 0;
-    int maxLength = Math.max(a.length(), b.length());
+        String result = "";
+        b = complement(b);
+        b = sum(b, "1"); // complemento a 2
+        result = sum(a, b);
+        return result;
+    }
 
-    for (int i = 0; i < maxLength; i++) {
-        int bitA = (i < a.length()) ? a.charAt(a.length() - 1 - i) - '0' : 0;
-        int bitB = (i < b.length()) ? b.charAt(b.length() - 1 - i) - '0' : 0;
-        int diff = bitA - bitB - borrow;
-        
-        if (diff < 0) {
-            diff += 2;
-            borrow = 1;
-        } else {
-            borrow = 0;
+    private String complement(String b) {
+        String result = "";
+        for (char c : b.toCharArray()) {
+            result += (c == '0') ? '1' : '0';
         }
-        
-        result.append(diff);
+        return result;
     }
-    
-    // Remove leading zeros from the result
-    while (result.length() > 1 && result.charAt(result.length() - 1) == '0') {
-        result.deleteCharAt(result.length() - 1);
-    }
-    
-    if (borrow == 1) {
-        // b is greater than a, so the result is negative
-        result.insert(0, '-');
-    }
-    
-    return result.reverse().toString();
-}
+
 
     @Override
     public String mult(String a, String b) {
-        StringBuilder result = new StringBuilder();
-        int maxLength = a.length() + b.length();
-        int[] product = new int[maxLength];
-        
-        // Multiply each bit of b with a and store the result in product array
-        for (int i = b.length() - 1; i >= 0; i--) {
-            int bitB = b.charAt(i) - '0';
-            for (int j = a.length() - 1; j >= 0; j--) {
-                int bitA = a.charAt(j) - '0';
-                int prod = bitA * bitB;
-                int sum = prod + product[i + j + 1];
-                product[i + j + 1] = sum % 2;
-                product[i + j] += sum / 2;
-            }
+        String result = "";
+        int times = Integer.parseInt(b, 2);
+        for (int i = 0; i < times; i++) {
+            result = sum(result, a);
         }
-        
-        // Convert the product array to a string
-        for (int i = 0; i < maxLength; i++) {
-            result.append(product[i]);
-        }
-        
-        // Remove leading zeros from the result
-        while (result.length() > 1 && result.charAt(0) == '0') {
-            result.deleteCharAt(0);
-        }
-        
-        return result.toString();
+        return result;
     }
     
 
@@ -107,56 +70,17 @@ public class BinaryCalculator implements Calculator{
             (a.length() == b.length() && a.compareTo(b) < 0)) {
             return "0";
         }
-    
-        StringBuilder quotientBuilder = new StringBuilder();
-        StringBuilder remainderBuilder = new StringBuilder(a.substring(0, b.length()));
-        int i = b.length();
-    
-        while (i <= a.length()) {
-            int cmp = remainderBuilder.toString().compareTo(b);
-            int quotientDigit = cmp < 0 ? 0 : 1;
-    
-            quotientBuilder.append(quotientDigit);
-    
-            if (cmp < 0) {
-                i++;
-            } else {
-                String subtracted = subtract(remainderBuilder.toString(), b);
-                remainderBuilder.delete(0, remainderBuilder.length());
-                remainderBuilder.append(subtracted);
-    
-                if (i < a.length()) {
-                    remainderBuilder.append(a.charAt(i));
-                    i++;
-                }
-            }
+
+        String result = "";
+        int count = 0;
+        while (a.length() >= b.length()) {
+            a = sub(a, b);
+            count++;
         }
-    
-        return quotientBuilder.toString();
-    }
-    
-    private static String subtract(String a, String b) {
-        StringBuilder resultBuilder = new StringBuilder();
-        int borrow = 0;
-    
-        for (int i = a.length() - 1, j = b.length() - 1; i >= 0; i--, j--) {
-            int diff = a.charAt(i) - '0' - borrow;
-    
-            if (j >= 0) {
-                diff -= b.charAt(j) - '0';
-            }
-    
-            if (diff < 0) {
-                diff += 2;
-                borrow = 1;
-            } else {
-                borrow = 0;
-            }
-    
-            resultBuilder.append(diff);
+        for (int i = 0; i < count; i++) {
+            a = sum(result,a);
         }
-    
-        return resultBuilder.reverse().toString().replaceFirst("^0+(?!$)", "");
+        return result;
     }
 
     @Override
